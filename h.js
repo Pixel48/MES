@@ -62,17 +62,18 @@ export default class H {
     // console.info(gl);
     // console.info(Wpc);
 
-    const Hpc = [];
+    this.matrix = [];
     for (let pointID = 0; pointID < 4; pointID++) {
-      Hpc.push([]);
+      this.matrix.push([]);
       for (let row = 0; row < 4; row++) {
         for (let col = 0; col < pointCount; col++) {
-          Hpc[pointID][row] ??= 0;
-          Hpc[pointID][row] += Wpc[col] * HPCpc[col][row];
+          this.matrix[pointID][row] ??= 0;
+          this.matrix[pointID][row] +=
+            Wpc[col] * HPCpc[col].result[pointID][row];
         }
       }
     }
-    console.info(HPCpc[0]);
-    console.info(Hpc[0]);
+    // console.info(HPCpc[0]);
+    // console.info({ H: this.matrix });
   }
 }
