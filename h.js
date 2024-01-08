@@ -6,15 +6,14 @@ import HPC from './hpc.js';
 
 export default class H {
   constructor(element, degree, conductivity) {
-    this.degree = degree;
-    this.gl = GL(this.degree);
+    this.gl = GL(degree);
     const pointCount = degree ** 2;
 
     this.pc = [];
     const tξ = [];
     const tη = [];
-    for (let i = 0; i < this.degree; i++) {
-      for (let j = 0; j < this.degree; j++) {
+    for (let i = 0; i < degree; i++) {
+      for (let j = 0; j < degree; j++) {
         tξ.push(this.gl.x[i]);
         tη.push(this.gl.x[j]);
       }
