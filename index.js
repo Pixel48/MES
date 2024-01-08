@@ -2,7 +2,7 @@ import Dataset from './dataset.js';
 import GL from './gaussLag.js';
 import Hmatrix from './h.js';
 
-const DEGREE = 2;
+const DEGREE = 3;
 
 const dataset = new Dataset('./.data/test2.txt');
 // console.log(dataset); OK

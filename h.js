@@ -59,7 +59,7 @@ export default class H {
         Wpc.push(gl.w[i] * gl.w[k]);
       }
     }
-    console.info();
+    // console.info(gl);
     console.info(Wpc);
   }
 }
