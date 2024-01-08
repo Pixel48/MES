@@ -1,0 +1,16 @@
+# stuff
+.else/
+.docs/
+.raw/
+.data/
+.out/
+
+# c
+*.exe
+*.o
+
+# node
+node_modules/
+*.old.js
+*.bak.js
+*.org.js
