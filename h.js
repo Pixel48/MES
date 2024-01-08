@@ -35,23 +35,23 @@ export default class H {
     for (let pointID = 0; pointID < pointCount; pointID++) {
       Jpc.push(new Jacobian(Ndivs, x, y, pointID));
     }
-    // console.log(Jpc[0]);
+    // console.info(Jpc[0]);
 
     const Nd = [];
-    // console.log({ Ndivs });
+    // console.info({ Ndivs });
     for (let pointID = 0; pointID < pointCount; pointID++) {
       Nd.push(new ElementD(Jpc[pointID], Ndivs));
     }
-    // console.log(Jpc[0]);
-    // console.log(Ndivs);
-    // console.log(Nd[0]);
+    // console.info(Jpc[0]);
+    // console.info(Ndivs);
+    // console.info(Nd[0]);
 
     const HPCpc = [];
     for (let pointID = 0; pointID < pointCount; pointID++) {
       HPCpc.push(new HPC(pointID, Nd[pointID], Jpc[pointID], conductivity));
     }
-    // console.log(Nd[0]);
-    // console.log(HPCpc[0]);
+    // console.info(Nd[0]);
+    // console.info(HPCpc[0]);
 
     const Wpc = [];
     for (let i = 0; i < degree; i++) {
@@ -59,6 +59,7 @@ export default class H {
         Wpc.push(gl.w[i] * gl.w[k]);
       }
     }
-    console.log(Wpc);
+    console.info();
+    console.info(Wpc);
   }
 }
