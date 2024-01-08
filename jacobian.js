@@ -55,7 +55,5 @@ export default class Jacobian {
     this.ydξ = this.J[0][1];
     this.xdη = this.J[1][0];
     this.ydη = this.J[1][1];
-
-    console.log(this);
   }
 }
