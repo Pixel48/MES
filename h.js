@@ -35,23 +35,23 @@ export default class H {
     for (let pointID = 0; pointID < pointCount; pointID++) {
       Jpc.push(new Jacobian(Ndivs, x, y, pointID));
     }
-    // console.info(Jpc[0]);
+    // console.debug(Jpc[0]);
 
     const Nd = [];
-    // console.info({ Ndivs });
+    // console.debug({ Ndivs });
     for (let pointID = 0; pointID < pointCount; pointID++) {
       Nd.push(new ElementD(Jpc[pointID], Ndivs));
     }
-    // console.info(Jpc[0]);
-    // console.info(Ndivs);
-    // console.info(Nd[0]);
+    // console.debug(Jpc[0]);
+    // console.debug(Ndivs);
+    // console.debug(Nd[0]);
 
     const HPCpc = [];
     for (let pointID = 0; pointID < pointCount; pointID++) {
       HPCpc.push(new HPC(pointID, Nd[pointID], Jpc[pointID], conductivity));
     }
-    // console.info(Nd[0]);
-    // console.info(HPCpc[0]);
+    // console.debug(Nd[0]);
+    // console.debug(HPCpc[0]);
 
     const Wpc = [];
     for (let i = 0; i < degree; i++) {
@@ -59,8 +59,8 @@ export default class H {
         Wpc.push(gl.w[i] * gl.w[k]);
       }
     }
-    // console.info(gl);
-    // console.info(Wpc);
+    // console.debug(gl);
+    // console.debug(Wpc);
 
     this.matrix = [];
     for (let pointID = 0; pointID < 4; pointID++) {
@@ -73,7 +73,7 @@ export default class H {
         }
       }
     }
-    // console.info(HPCpc[0]);
-    // console.info({ H: this.matrix });
+    // console.debug(HPCpc[0]);
+    // console.debug({ H: this.matrix });
   }
 }
