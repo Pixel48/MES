@@ -50,7 +50,15 @@ export default class H {
     for (let pointID = 0; pointID < pointCount; pointID++) {
       HPCpc.push(new HPC(pointID, Nd[pointID], Jpc[pointID], conductivity));
     }
-    console.log(Nd[0]);
-    console.log(HPCpc[0]);
+    // console.log(Nd[0]);
+    // console.log(HPCpc[0]);
+
+    const Wpc = [];
+    for (let i = 0; i < degree; i++) {
+      for (let k = 0; k < degree; k++) {
+        Wpc.push(gl.w[i] * gl.w[k]);
+      }
+    }
+    console.log(Wpc);
   }
 }
