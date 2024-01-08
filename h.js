@@ -60,6 +60,19 @@ export default class H {
       }
     }
     // console.info(gl);
-    console.info(Wpc);
+    // console.info(Wpc);
+
+    const Hpc = [];
+    for (let pointID = 0; pointID < 4; pointID++) {
+      Hpc.push([]);
+      for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < pointCount; col++) {
+          Hpc[pointID][row] ??= 0;
+          Hpc[pointID][row] += Wpc[col] * HPCpc[col][row];
+        }
+      }
+    }
+    console.info(HPCpc[0]);
+    console.info(Hpc[0]);
   }
 }
