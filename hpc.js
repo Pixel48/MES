@@ -16,7 +16,7 @@ export default class HPC {
         this.result[i][j] =
           (Nd.dx[pointID][i] * Nd.dx[pointID][j] +
             Nd.dy[pointID][i] * Nd.dy[pointID][j]) *
-          jacobian.det *
+          jacobian.detJ *
           cond;
       }
     }

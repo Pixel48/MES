@@ -45,12 +45,13 @@ export default class H {
     }
     // console.log(Jpc[0]);
     // console.log(Ndivs);
-    console.log(Nd[0]);
+    // console.log(Nd[0]);
 
     const HPCpc = [];
     for (let pointID = 0; pointID < pointCount; pointID++) {
       HPCpc.push(new HPC(pointID, Nd[pointID], Jpc[pointID], conductivity));
     }
-    // console.log(HPCpc[0]);
+    console.log(Nd[0]);
+    console.log(HPCpc[0]);
   }
 }
