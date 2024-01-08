@@ -11,10 +11,10 @@ const dataset = new Dataset('./.data/test2.txt');
 const gl = GL(DEGREE);
 // console.log(gl); OK
 
-const Hs_ = [];
+const H_ = [];
 for (let elementID = 0; elementID < dataset.elements.length; elementID++) {
   const element = dataset.elements[elementID];
   const { conductivity } = dataset;
   const H = new Hmatrix(element, DEGREE, conductivity);
-  Hs_.push(H);
+  H_.push(H);
 }
