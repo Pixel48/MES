@@ -70,9 +70,9 @@ export default class HBC {
       }
     }
 
-    console.debug({
-      P: this.P,
-      HBCmatrix: this.matrix,
-    });
+    // console.debug({
+    //   P: this.P,
+    //   HBCmatrix: this.matrix,
+    // });
   }
 }

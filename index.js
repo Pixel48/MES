@@ -31,4 +31,5 @@ const Hbc_ = [];
 H_.forEach((H, elementID) => {
   Hbc_.push(new HBC(dataset, elementID, DEGREE, gl));
 });
-console.debug(`Hbc_: ${[...Hbc_]}`);
+
+console.dir(Hbc_, { depth: null });
