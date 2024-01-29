@@ -27,6 +27,5 @@ export default class ElementDivs {
       du_[3] = 0.25 * (1 - η_[point]);
       this.dξ[point] = du_;
     }
-    // console.log(this);
   }
 }

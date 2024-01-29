@@ -1,5 +1,3 @@
-// const fs = require('fs');
-// const path = require('path');
 import fs from 'fs';
 import path from 'path';
 
@@ -117,7 +115,3 @@ class Dataset {
 }
 
 export default Dataset;
-
-// const ds = new Dataset('./.data/test1.txt');
-// ds.show();
-// console.log(ds.elements[0].nodes[0]);

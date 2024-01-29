@@ -26,10 +26,7 @@ export default class HBC {
     for (let edge = 0; edge < 4; edge++) {
       edgeInfo.push([]); // edge axis
       for (let k = 0; k < degree; k++) {
-        // const [ξ, η] = ξηPair(edge, k);
-        // edgeInfo[edge].push([ξ, η]);
         edgeInfo[edge].push(ξηPair(edge, k));
-        // edgeInfo[edge][k][ξ,η]; k = 1,...,degree; ξ|η = 0|1
       }
     }
 
@@ -69,10 +66,5 @@ export default class HBC {
         }
       }
     }
-
-    // console.debug({
-    //   P: this.P,
-    //   HBCmatrix: this.matrix,
-    // });
   }
 }

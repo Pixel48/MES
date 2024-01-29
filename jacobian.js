@@ -17,18 +17,6 @@ export default class Jacobian {
 
     // // dxdξ | dydξ
     // // dxdη | dydη
-    // this.J[0][0] = this.jQuad(dv.dξ[id], x);
-    // this.J[0][1] = this.jQuad(dv.dη[id], x);
-    // this.J[1][0] = this.jQuad(dv.dξ[id], y);
-    // this.J[1][1] = this.jQuad(dv.dη[id], y);
-
-    // this.J[0][0] = this.jQuad(dv.dξ[id], x);
-    // this.J[1][0] = this.jQuad(dv.dξ[id], y);
-    // this.J[0][1] = this.jQuad(dv.dη[id], x);
-    // this.J[1][1] = this.jQuad(dv.dη[id], y);
-
-    // this.J[0][0] = this.jQuad(x, dv.dξ[id]); this.J[0][1] = this.jQuad(y, dv.dξ[id]);
-    // this.J[1][0] = this.jQuad(x, dv.dη[id]); this.J[1][1] = this.jQuad(y, dv.dη[id]);
 
     this.J = [
       [this.jQuad(x, dv.dξ[id]), this.jQuad(y, dv.dξ[id])],

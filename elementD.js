@@ -12,12 +12,6 @@ export default class ElementD {
     }
 
     const { revJ, detJ } = J;
-    // console.log({ revJ, detJ });
-    // console.log({ div, revJ, detJ });
-    // console.log({ dξ: div.dξ[0] });
-    // console.log({ dη: div.dη[0] });
-    // console.log({ revJ });
-    // console.log({ detJ });
     for (let point = 0; point < div.length; point++) {
       for (let col = 0; col < 4; col++) {
         this.dx[point][col] =
