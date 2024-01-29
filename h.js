@@ -32,18 +32,18 @@ export default class H {
     );
 
     const Jpc = [];
-    for (let pointID = 0; pointID < pointCount; pointID++) {
-      Jpc.push(new Jacobian(Ndivs, x, y, pointID));
+    for (let point = 0; point < pointCount; point++) {
+      Jpc.push(new Jacobian(Ndivs, x, y, point));
     }
 
     const Nd = [];
-    for (let pointID = 0; pointID < pointCount; pointID++) {
-      Nd.push(new ElementD(Jpc[pointID], Ndivs));
+    for (let point = 0; point < pointCount; point++) {
+      Nd.push(new ElementD(Jpc[point], Ndivs));
     }
 
     const HPCpc = [];
-    for (let pointID = 0; pointID < pointCount; pointID++) {
-      HPCpc.push(new HPC(pointID, Nd[pointID], Jpc[pointID], conductivity));
+    for (let point = 0; point < pointCount; point++) {
+      HPCpc.push(new HPC(point, Nd[point], Jpc[point], conductivity));
     }
 
     const Wpc = [];
@@ -54,13 +54,12 @@ export default class H {
     }
 
     this.matrix = [];
-    for (let pointID = 0; pointID < 4; pointID++) {
+    for (let point = 0; point < 4; point++) {
       this.matrix.push([]);
       for (let row = 0; row < 4; row++) {
         for (let col = 0; col < pointCount; col++) {
-          this.matrix[pointID][row] ??= 0;
-          this.matrix[pointID][row] +=
-            Wpc[col] * HPCpc[col].result[pointID][row];
+          this.matrix[point][row] ??= 0;
+          this.matrix[point][row] += Wpc[col] * HPCpc[col].result[point][row];
         }
       }
     }

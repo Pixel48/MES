@@ -1,5 +1,5 @@
 export default class HPC {
-  constructor(pointID, Nd, jacobian, cond) {
+  constructor(point, Nd, jacobian, cond) {
     this.x = [];
     this.y = [];
     this.result = [];
@@ -9,13 +9,13 @@ export default class HPC {
       this.y.push([undefined, undefined, undefined, undefined]);
       this.result.push([undefined, undefined, undefined, undefined]);
     }
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
-        this.x[i][j] = Nd.dx[pointID][i] * Nd.dy[pointID][j];
-        this.y[i][j] = Nd.dy[pointID][i] * Nd.dx[pointID][j];
-        this.result[i][j] =
-          (Nd.dx[pointID][i] * Nd.dx[pointID][j] +
-            Nd.dy[pointID][i] * Nd.dy[pointID][j]) *
+    for (let row = 0; row < 4; row++) {
+      for (let col = 0; col < 4; col++) {
+        this.x[row][col] = Nd.dx[point][row] * Nd.dy[point][col];
+        this.y[row][col] = Nd.dy[point][row] * Nd.dx[point][col];
+        this.result[row][col] =
+          (Nd.dx[point][row] * Nd.dx[point][col] +
+            Nd.dy[point][row] * Nd.dy[point][col]) *
           jacobian.detJ *
           cond;
       }
