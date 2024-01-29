@@ -43,5 +43,8 @@ export default class Jacobian {
     this.ydξ = this.J[0][1];
     this.xdη = this.J[1][0];
     this.ydη = this.J[1][1];
+
+    // J as vector
+    this.Jv = [this.J[0][0], this.J[0][1], this.J[1][0], this.J[1][1]];
   }
 }
