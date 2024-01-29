@@ -1,5 +1,5 @@
 import GL from './gaussLag.js';
-import ElementDivs from './elementDivs.js';
+import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import ElementD from './elementD.js';
 import HPC from './hpc.js';
@@ -20,7 +20,7 @@ export default class H {
     }
     this.pc.push({ ξ: tξ, η: tη });
 
-    const Ndivs = new ElementDivs(tξ, tη);
+    const Ndivs = new ElementDv(tξ, tη);
 
     const { x, y } = element.nodes.reduce(
       (acc, node, nodeID) => {

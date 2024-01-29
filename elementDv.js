@@ -1,4 +1,4 @@
-export default class ElementDivs {
+export default class ElementDv {
   constructor(η_, ξ_) {
     this.dη = [];
     this.dξ = [];
