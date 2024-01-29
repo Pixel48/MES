@@ -2,7 +2,7 @@ export default class HBC {
   constructor(dataset, elementID, degree, gl) {
     const element = dataset.elements[elementID];
 
-    const { alpha: α, tot } = dataset;
+    const { alpha: alpha, tot } = dataset;
 
     this.P = [];
     this.matrix = [];
@@ -50,7 +50,7 @@ export default class HBC {
         // console.debug('N:', N);
 
         for (let i = 0; i < 4; i++) {
-          this.P[i] += N[i] * tot * detJ * gl.w[k] * α;
+          this.P[i] += N[i] * tot * detJ * gl.w[k] * alpha;
           if (isNaN(this.P[i])) {
             console.error({
               where: `P[${i}]`,
@@ -59,13 +59,13 @@ export default class HBC {
               tot,
               detJ,
               glw: gl.w[k],
-              α,
+              alpha,
             });
             throw new Error('NaN in P');
           }
 
           for (let j = 0; j < 4; j++)
-            this.matrix[i][j] += N[i] * N[j] * detJ * gl.w[k] * α;
+            this.matrix[i][j] += N[i] * N[j] * detJ * gl.w[k] * alpha;
         }
       }
     }
