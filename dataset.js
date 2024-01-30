@@ -32,10 +32,10 @@ class Dataset {
 
       switch (variable) {
         case 'SimulationTime':
-          this.simulationTime = parseFloat(values[0]);
+          this.simTime = parseFloat(values[0]);
           break;
         case 'SimulationStepTime':
-          this.simulationStepTime = parseFloat(values[0]);
+          this.simStepTime = parseFloat(values[0]);
           break;
         case 'Conductivity':
           this.conductivity = parseFloat(values[0]);
@@ -79,6 +79,7 @@ class Dataset {
             case 'node':
               const [x, y] = value.split(',').map(parseFloat);
               const index = nodes.push({ x, y });
+              nodes[index - 1].index = index - 1;
               if (index != parseInt(variable))
                 throw new Error(`Node ${index} is missing`);
               break;
@@ -108,6 +109,23 @@ class Dataset {
           elementIndex++
         )
     );
+    this.nodes = this.elements.reduce((acc, element) => {
+      element.nodes.forEach((node) => {
+        const { index, ...nnode } = node;
+        acc[index] = nnode;
+      });
+      return acc;
+    }, []);
+    this.BCmap = this.nodes.reduce((acc, node, index) => {
+      const div = Math.sqrt(this.nodes.length);
+
+      const row = Math.floor(index / div);
+      const col = index % div;
+
+      acc[row] ??= [];
+      acc[row][col] = node.bc ? 1 : 0;
+      return acc;
+    }, []);
   }
   show() {
     console.log(this);
