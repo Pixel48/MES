@@ -3,6 +3,7 @@ import GL from './gaussLag.js';
 import Hmatrix from './h.js';
 import HBC from './hbc.js';
 import C from './c.js';
+import GlobalH from './globalH.js';
 
 const dataset = new Dataset('./.data/test2.txt');
 console.dir(dataset, { depth: null });
@@ -43,5 +44,7 @@ for (let i = 0; i < H_.length; i++) {
   );
 }
 
-// TODO: validate this
-console.dir(C_, { depth: null });
+// console.dir(C_, { depth: null });
+
+const globalH = new GlobalH(H_, Hbc_, dataset);
+console.dir({ globalH }, { depth: null });
