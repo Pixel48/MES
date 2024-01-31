@@ -31,11 +31,11 @@ export default class HBC {
         edgeInfo[edge].push(ξηPair(edge, tillDegree));
       }
     }
-    console.dir({ edgeInfo }, { depth: null });
+    // console.dir({ edgeInfo }, { depth: null });
 
     for (let edge = 0; edge < 4; edge++) {
       const nodeA = element.nodes[edge];
-      const nodeB = element.nodes[(edge + 1) % 4];
+      const nodeB = element.nodes[(edge + 3) % 4];
       if (!(nodeA.bc && nodeB.bc)) continue;
       const detJ =
         ((nodeA.x - nodeB.x) ** 2 + (nodeA.y - nodeB.y) ** 2) ** 0.5 / 2;
@@ -43,14 +43,16 @@ export default class HBC {
       for (let k = 0; k < degree; k++) {
         const N = [];
         for (let x = 0; x < 4; x++) {
-          const first = edgeInfo[edge][k][0] * (!!(x % 3) ? -1 : 1);
+          const first = edgeInfo[edge][k][0] * (x % 3 === 0 ? -1 : 1);
           const second = edgeInfo[edge][k][1] * (x < 2 ? -1 : 1);
-          N[x] = 0.25 * (1 + first) * (1 + second);
-        } // build N
+          N[(x + 3) % 4] = 0.25 * (1 + first) * (1 + second);
+        } // calc N
+        // console.debug({ detJ });
         // console.debug('N:', N);
 
         for (let i = 0; i < 4; i++) {
           this.P[i] += N[i] * tot * detJ * gl.w[k] * alpha;
+          /* #region this.P NaN safeguard */
           if (isNaN(this.P[i])) {
             console.error({
               where: `P[${i}]`,
@@ -63,9 +65,15 @@ export default class HBC {
             });
             throw new Error('NaN in P');
           }
+          /* #endregion */
 
-          for (let j = 0; j < 4; j++)
+          // this.matrix[i] ??= [];
+          for (let j = 0; j < 4; j++) {
+            // this.matrix[i][j] ??= 0;
             this.matrix[i][j] += N[i] * N[j] * detJ * gl.w[k] * alpha;
+            // console.debug('-----------------------------------------------');
+            // printMatrix(this.matrix);
+          }
         }
       }
     }
