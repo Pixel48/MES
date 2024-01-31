@@ -17,13 +17,15 @@ export default class Sim {
       this.steps[0].push(initialTemp);
     // console.dir({ t0: this.t0 }, { depth: null });
   }
+  logging(output = false, border = false) {
+    if (output) console.log(this.steps[this._step]);
+    if (border)
+      console.log({
+        step: this._step,
+        minMax: this.minMax(this.steps[this._step]),
+      });
+  }
   step(output = false, border = false) {
-    /* #region logging */
-    if (this._step == 0) {
-      if (output) console.log(this.steps[this._step]);
-      if (border) console.log(this.minMax(this.steps[this._step]));
-    }
-    /* #endregion */
     this._step++;
 
     const HC = this.matrixSum(this.globalH.matrix, this.globalC.matrix);
@@ -42,16 +44,12 @@ export default class Sim {
     this.steps[this._step] = gaussianElimination(HC, P);
 
     /* #region logging */
-    if (output) console.log(this.steps[this._step]);
-    if (border)
-      console.log({
-        step: this._step,
-        minMax: this.minMax(this.steps[this._step]),
-      });
+    this.logging(output, border);
     /* #endregion */
   }
   run(output = false, border = false) {
-    if (output) console.debug('=== SIMULATION START ===');
+    console.debug(`=== SIMULATION START (${this.endStep} steps) ===`);
+    this.logging(output, border);
     while (this._step < this.endStep) this.step(output, border);
   }
   matrixSum(matrix1, matrix2) {

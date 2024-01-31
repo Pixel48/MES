@@ -16,7 +16,7 @@ export const printMatrix = (matrix) => {
   console.debug();
 };
 
-const dataset = new Dataset('./.data/Test2_4_4_MixGrid.txt');
+const dataset = new Dataset('./.data/test2.txt');
 // console.dir(dataset, { depth: null });
 
 const DEGREE = 2;
@@ -70,6 +70,7 @@ const globalC = new GlobalC(C_, dataset);
 // console.dir({ GEglobalH: elimination(globalH.matrix, globalH.P) });
 
 const sim = new Sim(dataset, globalH, globalC);
-const TARGET = 5;
-for (let target = 0; target < TARGET; target++) sim.step(false, true);
-// sim.run(false, true);
+// const TARGET = 5;
+// for (let target = 0; target < TARGET; target++) sim.step(false, true);
+sim.run(false, true);
+// sim.run();
