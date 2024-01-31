@@ -1,4 +1,4 @@
-import { printMatrix } from './index.js';
+import { printMatrix } from './mes.js';
 
 export default class HBC {
   constructor(dataset, elementID, degree, gl) {

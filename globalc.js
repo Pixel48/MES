@@ -1,4 +1,4 @@
-import { printMatrix } from './index.js';
+import { printMatrix } from './mes.js';
 
 export default class GlobalC {
   constructor(C_, dataset) {

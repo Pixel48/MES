@@ -4,6 +4,7 @@
 .raw/
 .data/
 .out/
+vtk/
 
 # c
 *.exe

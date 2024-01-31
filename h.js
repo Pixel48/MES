@@ -3,7 +3,7 @@ import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import ElementD from './elementD.js';
 import HPC from './hpc.js';
-import { printMatrix } from './index.js';
+import { printMatrix } from './mes.js';
 
 export default class H {
   constructor(element, degree, conductivity) {

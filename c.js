@@ -2,7 +2,7 @@ import GL from './gauss.js';
 import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import CPC from './cpc.js';
-import { printMatrix } from './index.js';
+import { printMatrix } from './mes.js';
 
 export default class C {
   constructor(element, degree, conductivity, specyficHeat, density) {

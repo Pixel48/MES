@@ -1,4 +1,6 @@
+import path from 'path';
 import { elimination as gaussianElimination } from './gauss.js';
+import fs from 'fs';
 
 export default class Sim {
   constructor(dataset, H, C) {
@@ -16,6 +18,29 @@ export default class Sim {
     for (let _ = 0; _ < this.globalH.matrix.length; _++)
       this.steps[0].push(initialTemp);
     // console.dir({ t0: this.t0 }, { depth: null });
+
+    this.fileHeader =
+      '# vtk DataFile Version 2.0\nUnstructured Grid Example\nASCII\nDATASET UNSTRUCTURED_GRID\n\n';
+    this.fileHeader += `POINTS ${dataset.nodes.length} float\n`;
+    dataset.nodes.forEach(
+      (node) => (this.fileHeader += `${node.x} ${node.y} 0\n`)
+    );
+    this.fileHeader += '\n';
+    this.fileHeader += `CELLS ${dataset.elements.length} ${
+      5 * dataset.elements.length
+    }\n`;
+    dataset.elements.forEach((element) => {
+      this.fileHeader += '4';
+      element.nodes.forEach((node) => (this.fileHeader += ` ${node.index}`));
+      this.fileHeader += '\n';
+    });
+    this.fileHeader += '\n';
+    this.fileHeader += `CELL_TYPES 9\n`;
+    dataset.elements.forEach((_, elementIndex) => (this.fileHeader += '9\n'));
+    this.fileHeader += '\n';
+    this.fileHeader += `POINT_DATA ${dataset.nodes.length}\n`;
+    this.fileHeader += 'SCALARS temperature float 1\n';
+    this.fileHeader += 'LOOKUP_TABLE default\n';
   }
   logging(output = false, border = false) {
     if (output) console.log(this.steps[this._step]);
@@ -24,6 +49,7 @@ export default class Sim {
         step: this._step,
         minMax: this.minMax(this.steps[this._step]),
       });
+    if (!output && !border) process.stdout.write('.');
   }
   step(output = false, border = false) {
     this._step++;
@@ -98,5 +124,24 @@ export default class Sim {
       if (value > max) max = value;
     });
     return [min, max];
+  }
+  recursiveMkdir(dir) {
+    if (!fs.existsSync(dir)) {
+      this.recursiveMkdir(path.dirname(dir));
+      fs.mkdirSync(dir);
+    }
+  }
+  save(outputPath) {
+    this.recursiveMkdir(outputPath);
+    const output = path.basename(outputPath);
+    if (this._step != this.endStep) this.run();
+
+    this.steps.forEach((step, stepIndex) => {
+      const fileContent = this.fileHeader + step.join('\n');
+      const fileName = `${output}_${stepIndex.toString().padStart(3, '0')}.vtk`;
+      fs.writeFileSync(`${outputPath}/${fileName}`, fileContent);
+    });
+    console.debug(`\n=== SIMULATION END (Saved into ${outputPath}) ===`);
+    console.debug(``);
   }
 }
