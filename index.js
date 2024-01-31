@@ -71,6 +71,5 @@ const globalC = new GlobalC(C_, dataset);
 
 const sim = new Sim(dataset, globalH, globalC);
 const TARGET = 5;
-console.debug('=== SIMULATION START ===');
 for (let target = 0; target < TARGET; target++) sim.step(false, true);
 // sim.run(false, true);
