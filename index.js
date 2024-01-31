@@ -6,8 +6,18 @@ import C from './c.js';
 import GlobalH from './globalh.js';
 import GlobalC from './globalc.js';
 import { elimination } from './gauss.js';
+import Sim from './sim.js';
 
-const dataset = new Dataset('./.data/test2.txt');
+process.stdout.write('\x1Bc');
+
+export const printMatrix = (matrix) => {
+  matrix.forEach((row) => {
+    console.log(row.reduce((acc, value) => `${acc}\t${value.toFixed(3)}`, ''));
+  });
+  console.debug();
+};
+
+const dataset = new Dataset('./.data/Test2_4_4_MixGrid.txt');
 // console.dir(dataset, { depth: null });
 
 const DEGREE = 2;
@@ -30,6 +40,7 @@ const Hbc_ = [];
 H_.forEach((H, elementID) => {
   Hbc_.push(new HBC(dataset, elementID, DEGREE, gl));
 });
+// niceprint(H_[0].matrix);
 
 // console.dir(Hbc_, { depth: null });
 
@@ -50,7 +61,17 @@ for (let i = 0; i < H_.length; i++) {
 
 const globalH = new GlobalH(H_, Hbc_, dataset);
 // console.dir({ globalH }, { depth: null });
+// globalH.matrix.forEach((row) => {
+//   console.log(row.reduce((acc, value) => `${acc}\t${value.toFixed(2)}`, ''));
+// });
+// console.dir(globalH.P, { depth: null });
 
 const globalC = new GlobalC(C_, dataset);
 // console.dir({ globalC }, { depth: null });
-console.dir({ GEglobalH: elimination(globalH.matrix, globalH.P) });
+// console.dir({ GEglobalH: elimination(globalH.matrix, globalH.P) });
+
+const sim = new Sim(dataset, globalH, globalC);
+const TARGET = 5;
+console.debug('=== SIMULATION START ===');
+for (let target = 0; target < TARGET; target++) sim.step(false, true);
+// sim.run(false, true);

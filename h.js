@@ -3,6 +3,7 @@ import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import ElementD from './elementD.js';
 import HPC from './hpc.js';
+import { printMatrix } from './index.js';
 
 export default class H {
   constructor(element, degree, conductivity) {
@@ -21,6 +22,7 @@ export default class H {
     this.pc.push({ ξ: tξ, η: tη });
 
     const Ndivs = new ElementDv(tξ, tη);
+    // console.dir({ Ndivs }, { depth: null });
 
     const { x, y } = element.nodes.reduce(
       (acc, node, nodeID) => {
@@ -35,16 +37,24 @@ export default class H {
     for (let point = 0; point < pointCount; point++) {
       Jpc.push(new Jacobian(Ndivs, x, y, point));
     }
+    // console.dir({ Jpc }, { depth: null });
 
     const Nd = [];
     for (let point = 0; point < pointCount; point++) {
-      Nd.push(new ElementD(Jpc[point], Ndivs));
+      Nd.push(new ElementD(Jpc, Ndivs));
     }
 
     const HPCpc = [];
     for (let point = 0; point < pointCount; point++) {
+      // console.dir({ Jacobian: Jpc[point] }, { depth: null });
+      // console.dir({ Nd: Nd[point] }, { depth: null });
+      // console.debug({ point });
+      // console.debug({ conductivity });
       HPCpc.push(new HPC(point, Nd[point], Jpc[point], conductivity));
+      // console.debug('\t\t++ HPC MATRIX ++');
+      // printMatrix(HPCpc[HPCpc.length - 1].result);
     }
+    // console.dir({ HPCpc }, { depth: null });
 
     const Wpc = [];
     for (let i = 0; i < degree; i++) {
@@ -52,16 +62,18 @@ export default class H {
         Wpc.push(gl.w[i] * gl.w[k]);
       }
     }
+    // console.dir({ Wpc }, { depth: null });
 
     this.matrix = [];
-    for (let point = 0; point < 4; point++) {
-      this.matrix.push([]);
-      for (let row = 0; row < 4; row++) {
-        for (let col = 0; col < pointCount; col++) {
-          this.matrix[point][row] ??= 0;
-          this.matrix[point][row] += Wpc[col] * HPCpc[col].result[point][row];
+    for (let point = 0; point < pointCount; point++)
+      for (let row = 0; row < 4; row++)
+        for (let col = 0; col < 4; col++) {
+          this.matrix[row] ??= [];
+          this.matrix[row][col] ??= 0;
+          this.matrix[row][col] += Wpc[point] * HPCpc[point].result[row][col]; // * Jpc[point].detJ;
         }
-      }
-    }
+    // console.dir({ H: this.matrix }, { depth: null });
+    // console.debug('\t\t== H MATRIX ==');
+    // printMatrix(this.matrix);
   }
 }

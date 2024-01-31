@@ -19,14 +19,14 @@ export default class Jacobian {
     // // dxdη | dydη
 
     this.J = [
+      // [this.jQuad(x, dv.dξ[id]), this.jQuad(y, dv.dξ[id])],
+      // [this.jQuad(y, dv.dη[id]), this.jQuad(x, dv.dη[id])],
+      // ]; // BUG: this should not be working! there's some problem before calculating this
+      // should be this:
+      // this.J = [
       [this.jQuad(x, dv.dξ[id]), this.jQuad(y, dv.dξ[id])],
-      [this.jQuad(y, dv.dη[id]), this.jQuad(x, dv.dη[id])],
-    ]; // BUG: this should not be working! there's some problem before calculating this
-    // should be this:
-    // this.J = [
-    //   [this.jQuad(x, dv.dξ[id]), this.jQuad(y, dv.dξ[id])],
-    //   [this.jQuad(x, dv.dη[id]), this.jQuad(y, dv.dη[id])],
-    // ];
+      [this.jQuad(x, dv.dη[id]), this.jQuad(y, dv.dη[id])],
+    ];
 
     // J[1][1] | -J[0][1]
     // -J[1][0] | J[0][0]
