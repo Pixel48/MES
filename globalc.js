@@ -1,3 +1,5 @@
+import { printMatrix } from './index.js';
+
 export default class GlobalC {
   constructor(C_, dataset) {
     const { elements, nodes } = dataset;
@@ -22,5 +24,7 @@ export default class GlobalC {
           }
       });
     });
+    // console.debug('\t\t## C GLOBAL MATRIX ##');
+    // printMatrix(this.matrix);
   }
 }

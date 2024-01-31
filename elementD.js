@@ -13,8 +13,8 @@ export default class ElementD {
           (1 / detJ) * revJ[0][0] * div.dξ[point][col] +
           (1 / detJ) * revJ[1][0] * div.dη[point][col];
         this.dy[point][col] =
-          (1 / detJ) * revJ[1][1] * div.dη[point][col] +
-          (1 / detJ) * revJ[0][1] * div.dξ[point][col];
+          (1 / detJ) * revJ[0][1] * div.dξ[point][col] +
+          (1 / detJ) * revJ[1][1] * div.dη[point][col];
       }
     }
     // console.debug(this);

@@ -2,11 +2,11 @@ import GL from './gauss.js';
 import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import CPC from './cpc.js';
+import { printMatrix } from './index.js';
 
 export default class C {
   constructor(element, degree, conductivity, specyficHeat, density) {
     this.matrix = [];
-    for (let _ = 0; _ < 4; _++) this.matrix.push([]);
 
     const Cpc_ = [];
 
@@ -51,10 +51,14 @@ export default class C {
     // console.dir({ Wpc_ }, { depth: null });
     // console.dir({ Cpc_ }, { depth: null });
     for (let row = 0; row < 4; row++)
-      for (let col = 0; col < 4; col++)
+      for (let col = 0; col < 4; col++) {
+        this.matrix[row] ??= [];
         for (let point = 0; point < pointCount; point++) {
           this.matrix[row][col] ??= 0;
           this.matrix[row][col] += Wpc_[point] * Cpc_[point].matrix[row][col];
         }
+      }
+    // console.debug('\t\t## C MATRIX ##');
+    // printMatrix(this.matrix);
   }
 }

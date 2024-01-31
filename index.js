@@ -5,14 +5,13 @@ import HBC from './hbc.js';
 import C from './c.js';
 import GlobalH from './globalh.js';
 import GlobalC from './globalc.js';
-import { elimination } from './gauss.js';
 import Sim from './sim.js';
 
 process.stdout.write('\x1Bc');
 
 export const printMatrix = (matrix) => {
   matrix.forEach((row) => {
-    console.log(row.reduce((acc, value) => `${acc}\t${value.toFixed(3)}`, ''));
+    console.log(row.reduce((acc, value) => `${acc}\t${value.toFixed(2)}`, ''));
   });
   console.debug();
 };

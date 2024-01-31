@@ -73,6 +73,7 @@ export default class H {
           this.matrix[row][col] += Wpc[point] * HPCpc[point].result[row][col]; // * Jpc[point].detJ;
         }
     // console.dir({ H: this.matrix }, { depth: null });
+    // console.dir({ P: this.P });
     // console.debug('\t\t== H MATRIX ==');
     // printMatrix(this.matrix);
   }

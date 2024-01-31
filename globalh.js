@@ -5,9 +5,9 @@ export default class GlobalH {
 
     this.matrix = [];
     for (let row = 0; row < nodes.length; row++) {
-      this.matrix[row] = [];
+      this.matrix[row] ??= [];
       for (let col = 0; col < nodes.length; col++) {
-        this.matrix[row][col] = 0;
+        this.matrix[row][col] ??= 0;
       }
     }
 

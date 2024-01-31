@@ -1,34 +1,37 @@
+import { printMatrix } from './index.js';
+
 export default class HBC {
   constructor(dataset, elementID, degree, gl) {
     const element = dataset.elements[elementID];
 
-    const { alpha: alpha, tot } = dataset;
+    const { alpha, tot } = dataset;
 
     this.P = [];
     this.matrix = [];
     for (let row = 0; row < 4; row++) {
-      this.matrix.push([]);
+      this.matrix[row] ??= [];
       this.P.push(0);
       for (let col = 0; col < 4; col++) {
-        this.matrix[row].push(0);
-        for (let depth = 0; depth < 4; depth++) {}
+        this.matrix[row][col] ??= 0;
       }
     }
 
     const ξηPair = (edge, tillDeg) => {
-      const glx = gl.x[tillDeg];
-      const I = !(edge % 3) ? -1 : 1;
+      const glx = gl.x[tillDeg]; // wagi
+      const I = !(edge % 3) ? -1 : 1; // znak
       const result = [glx, I];
+      // console.debug({ edge, tillDeg, glx, I, result });
       return !(edge % 2) ? result : result.reverse();
     };
 
     const edgeInfo = []; // edgeInfo[edgeID][i2degree][ξ,η]
     for (let edge = 0; edge < 4; edge++) {
-      edgeInfo.push([]); // edge axis
-      for (let k = 0; k < degree; k++) {
-        edgeInfo[edge].push(ξηPair(edge, k));
+      edgeInfo[edge] ??= []; // edge axis
+      for (let tillDegree = 0; tillDegree < degree; tillDegree++) {
+        edgeInfo[edge].push(ξηPair(edge, tillDegree));
       }
     }
+    console.dir({ edgeInfo }, { depth: null });
 
     for (let edge = 0; edge < 4; edge++) {
       const nodeA = element.nodes[edge];
@@ -66,5 +69,8 @@ export default class HBC {
         }
       }
     }
+    console.debug('\t\t%% HBC MATRIX %%');
+    printMatrix(this.matrix);
+    console.debug('\tP:', this.P);
   }
 }
