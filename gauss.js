@@ -51,3 +51,23 @@ export default function (order) {
 
   return { x, w };
 }
+
+export const elimination = (matrix, vector) => {
+  for (let row = 0; row < matrix.length; row++) {
+    const div = matrix[row][row];
+    for (let col = 0; col < vector.length; col++) {
+      matrix[row][col] /= div;
+    }
+    vector[row] /= div;
+
+    for (let col = 0; col < matrix.length; col++) {
+      if (col == row) continue;
+      const mult = matrix[col][row];
+      for (let i = 0; i < vector.length; i++) {
+        matrix[col][i] -= mult * matrix[row][i];
+      }
+      vector[col] -= mult * vector[row];
+    }
+  }
+  return vector;
+};

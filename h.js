@@ -1,4 +1,4 @@
-import GL from './gaussLag.js';
+import GL from './gauss.js';
 import ElementDv from './elementDv.js';
 import Jacobian from './jacobian.js';
 import ElementD from './elementD.js';

@@ -1,13 +1,14 @@
 import Dataset from './dataset.js';
-import GL from './gaussLag.js';
+import GL from './gauss.js';
 import Hmatrix from './h.js';
 import HBC from './hbc.js';
 import C from './c.js';
 import GlobalH from './globalh.js';
 import GlobalC from './globalc.js';
+import { elimination } from './gauss.js';
 
 const dataset = new Dataset('./.data/test2.txt');
-console.dir(dataset, { depth: null });
+// console.dir(dataset, { depth: null });
 
 const DEGREE = 2;
 
@@ -52,3 +53,4 @@ const globalH = new GlobalH(H_, Hbc_, dataset);
 
 const globalC = new GlobalC(C_, dataset);
 // console.dir({ globalC }, { depth: null });
+console.dir({ GEglobalH: elimination(globalH.matrix, globalH.P) });
