@@ -24,7 +24,7 @@ export default class GlobalC {
           }
       });
     });
-    // console.debug('\t\t## C GLOBAL MATRIX ##');
-    // printMatrix(this.matrix);
+    console.debug('\t\t### C GLOBAL MATRIX ###');
+    printMatrix(this.matrix);
   }
 }

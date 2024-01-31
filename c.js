@@ -58,7 +58,7 @@ export default class C {
           this.matrix[row][col] += Wpc_[point] * Cpc_[point].matrix[row][col];
         }
       }
-    // console.debug('\t\t## C MATRIX ##');
-    // printMatrix(this.matrix);
+    console.debug('\t\t## C MATRIX ##');
+    printMatrix(this.matrix);
   }
 }

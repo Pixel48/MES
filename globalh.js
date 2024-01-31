@@ -29,7 +29,7 @@ export default class GlobalH {
         }
       }
     });
-    console.debug('=== Global H ===');
-    printMatrix(this.matrix);
+    // console.debug('=== Global H ===');
+    // printMatrix(this.matrix);
   }
 }
