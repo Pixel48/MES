@@ -77,8 +77,8 @@ export default class HBC {
         }
       }
     }
-    console.debug('\t\t%% HBC MATRIX %%');
-    printMatrix(this.matrix);
-    console.debug('\tP:', this.P);
+    // console.debug('\t\t%% HBC MATRIX %%');
+    // printMatrix(this.matrix);
+    // console.debug('\tP:', this.P);
   }
 }

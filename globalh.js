@@ -1,3 +1,5 @@
+import { printMatrix } from './index.js';
+
 export default class GlobalH {
   constructor(H_, Hbc_, dataset) {
     // console.dir({ H_ }, { depth: null });
@@ -27,5 +29,7 @@ export default class GlobalH {
         }
       }
     });
+    console.debug('=== Global H ===');
+    printMatrix(this.matrix);
   }
 }
