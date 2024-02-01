@@ -18,11 +18,11 @@ export const printMatrix = (matrix) => {
 };
 
 export default class MES {
-  constructor(datasetPath, display = false) {
+  constructor(datasetPath, display = false, degree = 2) {
     const dataset = new Dataset(datasetPath);
     // console.dir(dataset, { depth: null });
 
-    const DEGREE = 2;
+    const DEGREE = degree;
 
     const gl = GL(DEGREE);
 
@@ -85,5 +85,9 @@ export default class MES {
   bake(outputPath, logging = false) {
     this.sim.run(false, logging);
     this.sim.save(outputPath);
+  }
+
+  test() {
+    for (let i = 0; i < 10; i++) this.sim.step(false, true);
   }
 }

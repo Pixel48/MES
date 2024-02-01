@@ -15,6 +15,7 @@ class Element {
 
 class Dataset {
   constructor(filepath) {
+    console.debug(`+++ READING ${path.basename(filepath)} +++`);
     this.loadFile(filepath);
   }
   loadFile(filepath) {
